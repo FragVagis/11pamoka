@@ -36,3 +36,22 @@ $n = preg_replace_callback('/[0-9]+/', function($m){
 
 echo "\n\n";
 echo $n;
+
+echo '<br>-------4------<br>';
+// 4. Parašykite funkciją, kuri skaičiuotų, iš kiek sveikų skaičių jos argumentas dalijasi be liekanos (išskyrus vienetą ir patį save) Argumentą užrašykite taip, kad būtų galima įvesti tik sveiką skaičių;
+
+function sveikiSkaiciai(int $integer) {
+    $sveikiSkaiciai = [];
+}
+
+echo '<br>-------5------<br>';
+// 5. Sugeneruokite masyvą iš 100 elementų, kurio reikšmės atsitiktiniai skaičiai nuo 33 iki 77. Išrūšiuokite masyvą pagal daliklių be liekanos kiekį mažėjimo tvarka, panaudodami ketvirto uždavinio funkciją.
+
+
+$Array = [];
+foreach(range(1, 100) as $_) {
+    $Array[] = rand(33, 77);
+}
+
+
+
