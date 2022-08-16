@@ -29,6 +29,5 @@ if (!file_exists(__DIR__ . '/data.json')){
     </div>
     </form> 
 
-
 </body>
 </html>
