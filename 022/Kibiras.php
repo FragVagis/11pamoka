@@ -4,12 +4,30 @@ class Kibiras {
 
     protected $akmenuKiekis;
     static private $akmenuKiekisVisuoseKibiruose = 0;
+    static private $manoKibiras;
 
+    static public function kiekYraAkmenu() : int
+    {
+        return self::$akmenuKiekisVisuoseKibiruose;
+    }
 
-    public function __construct()
+    static public function naujasKibiras() : Kibiras
+    {
+        return self::$manoKibiras ?? self::$manoKibiras = new self;
+    }
+
+    private function __construct()
     {
         $this->akmenuKiekis = 0;
     }
+
+    public function __clone(){}
+
+    public function __wakeup()
+    {
+        throw new Exeption('Slove meskenui');
+    }
+
 
     public function prideti1Akmeni() : void
     {

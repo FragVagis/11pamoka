@@ -14,8 +14,8 @@ require __DIR__ . '/Kibiras.php';
 
 // var_dump($tv1);
 
-$stu1 = new Kibiras;
-$stu2 = new Kibiras;
+$stu1 = Kibiras::naujasKibiras();
+$stu2 = unserialize(serialize($stu1));
 
 $stu2->pridetiDaugAkmenu(28);
 $stu1->prideti1Akmeni();
@@ -28,4 +28,6 @@ echo '1: ' . $stu1->kiekPririnktaAkmenu();
 echo "\n";
 echo '2: ' . $stu2->kiekPririnktaAkmenu();
 echo "\n";
-echo 'VISO: ' . $stu2->kiekBendraiYraAkmenu();
+echo 'VISO: ' . $stu1->kiekBendraiYraAkmenu();
+echo "\n";
+echo 'Statine funkcija VISO: ' . Kibiras::kiekYraAkmenu();
