@@ -2,7 +2,13 @@
 echo '<pre>';
 
 require __DIR__ . '/Tv.php';
+
 require __DIR__ . '/Kibiras.php';
+
+require __DIR__ . '/SuperKibiras.php';
+
+
+
 
 
 
@@ -14,13 +20,14 @@ require __DIR__ . '/Kibiras.php';
 
 // var_dump($tv1);
 
-$stu1 = Kibiras::naujasKibiras();
-$stu2 = unserialize(serialize($stu1));
+$stu1 = new SuperKibiras;
+$stu2 = new SuperKibiras;
 
 $stu2->pridetiDaugAkmenu(28);
 $stu1->prideti1Akmeni();
 $stu1->prideti1Akmeni();
 $stu2->prideti1Akmeni();
+$stu2->prideti2Akmeni();
 $stu1->pridetiDaugAkmenu(3);
 
 
