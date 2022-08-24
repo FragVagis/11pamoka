@@ -3,9 +3,9 @@
     "description": "Bla bla bla",
     "autoload": {
         "psr-4": {
-            "Petro\\11pamoka\\": "01/",
-            "Antano\\11pamoka\\": "02/",
-            "\\": "01/"
+            "Petro\\": "01/",
+            "Antano\\Belekas\\": "02/",
+            "": "01/"
         }
     },
     "authors": [
