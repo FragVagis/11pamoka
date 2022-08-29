@@ -1,0 +1,16 @@
+{
+    "name": "user/025",
+    "description": "Meow",
+    "autoload": {
+        "psr-4": {
+            "": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "dmitrij",
+            "email": "dzimaskurb@gmail.com"
+        }
+    ],
+    "require": {}
+}
