@@ -12,7 +12,7 @@ class HomeController {
         $title = 'HOME';
         $welcome = 'Hello from fancy zoo!';
 
-        new Json;
+        Json::connect();
 
         return App::view('home', ['title' => $title, 'welcome' => $welcome]);
     }
