@@ -14,7 +14,10 @@ class HomeController {
 
         Json::connect();
 
-        return App::view('home', ['title' => $title, 'welcome' => $welcome]);
+        return App::view('home', [
+            'title' => $title,
+            'welcome' => $welcome
+        ]);
     }
     
 }
