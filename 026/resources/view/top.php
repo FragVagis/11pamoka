@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= URL ?>css/app.css">
-    <script src="<?= URL?>js/app.js" defer></script>
+    <script src="<?= URL ?>js/app.js" defer></script>
     <title><?= $title ?? 'No title' ?></title>
 </head>
 <body>
 <?php
-
 App\App::view('nav');
+App\App::view('msg');

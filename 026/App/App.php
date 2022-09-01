@@ -4,12 +4,16 @@ namespace App;
 
 use App\Controllers\HomeController as H;
 use App\Controllers\AnimalController as A;
+use App\Controllers\LoginController as L;
+use App\Controllers\ApiController as Api;
+use App\Middlewares\Auth;
 
 class App {
 
 
     static public function start()
     {
+        session_start();
         self::router();
     }
 
@@ -23,6 +27,10 @@ class App {
         $url = explode('/', $url);
         array_shift($url);
         $method = $_SERVER['REQUEST_METHOD'];
+
+        if (!Auth::authorize($url)) {
+            return self::redirect('login');
+        }
 
 
         if ($method == 'GET' && count($url) == 1 && $url[0] == '') {
@@ -49,6 +57,29 @@ class App {
         }
         if ($method == 'POST' && count($url) == 3 && $url[0] == 'animals' && $url[1] == 'delete') {
             return((new A)->delete((int) $url[2]));
+        }
+
+        if ($method == 'GET' && count($url) == 1 && $url[0] == 'login') {
+            if (Auth::isLoged()) {
+                return self::redirect('');
+            }
+            return((new L)->login());
+        }
+
+        if ($method == 'POST' && count($url) == 1 && $url[0] == 'login') {
+            return((new L)->doLogin());
+        }
+
+        if ($method == 'POST' && count($url) == 1 && $url[0] == 'logout') {
+            return((new L)->logout());
+        }
+
+        if ($method == 'GET' && count($url) == 2 && $url[0] == 'api' && $url[1] == 'go') {
+            return (new Api)->show();
+        }
+
+        if ($method == 'POST' && count($url) == 2 && $url[0] == 'api' && $url[1] == 'go') {
+            return (new Api)->doApi();
         }
 
     }
