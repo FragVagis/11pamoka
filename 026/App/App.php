@@ -87,7 +87,7 @@ class App {
 
         if ($method == 'OPTIONS') {
             header('Access-Control-Allow-Origin: *');
-            header('Access-Control-Allow-Methods: GET, POST');
+            header('Access-Control-Allow-Methods: GET, POST, DELETE, PUT');
             header('Access-Control-Allow-Headers: Content-Type');
         }
 
@@ -96,6 +96,12 @@ class App {
         }
         if ($method == 'POST' && count($url) == 2 && $url[0] == 'react' && $url[1] == 'list') {
             return (new R)->store();
+        }
+        if ($method == 'DELETE' && count($url) == 3 && $url[0] == 'react' && $url[1] == 'list') {
+            return (new R)->delete($url[2]);
+        }
+        if ($method == 'PUT' && count($url) == 3 && $url[0] == 'react' && $url[1] == 'list') {
+            return (new R)->update($url[2]);
         }
 
     }
@@ -109,7 +115,7 @@ class App {
     static public function json(array $data)
     {
         header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Methods: GET, POST');
+        header('Access-Control-Allow-Methods: GET, POST, DELETE, PUT');
         header("Access-Control-Allow-Headers: X-Requested-With");
         header("Content-Type: application/json");
         echo json_encode($data);

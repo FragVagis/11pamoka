@@ -27,4 +27,23 @@ class ReactController {
         return App::json(['msg' => 'Hello Africa']);
     }
 
+    public function delete(int $id)
+    {
+        Json::connect()->delete($id);
+        return App::json(['msg' => 'Hello Africa']);
+    }
+
+    public function update(int $id)
+    {
+        $rawData = file_get_contents("php://input");
+        $rawData = json_decode($rawData, 1);
+
+        Json::connect()->update($id, [
+            'type' => $rawData['type'],
+            'weight' => $rawData['weight'],
+            'tail' => $rawData['tail']
+        ]);
+        return App::json(['msg' => 'Hello Africa']);
+    }
+
 }
