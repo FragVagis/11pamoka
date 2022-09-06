@@ -24,13 +24,13 @@ class ReactController {
             'weight' => $rawData['weight'],
             'tail' => $rawData['tail']
         ]);
-        return App::json(['msg' => 'Hello Africa']);
+        return App::json(['msg' => 'Animal were added to your list :)']);
     }
 
     public function delete(int $id)
     {
         Json::connect()->delete($id);
-        return App::json(['msg' => 'Hello Africa']);
+        return App::json(['msg' => 'Animal were kicked from your list :(']);
     }
 
     public function update(int $id)
@@ -43,7 +43,7 @@ class ReactController {
             'weight' => $rawData['weight'],
             'tail' => $rawData['tail']
         ]);
-        return App::json(['msg' => 'Hello Africa']);
+        return App::json(['msg' => 'Your animal were updated :D']);
     }
 
 }
