@@ -8,7 +8,10 @@ class NiceController extends Controller
 {
     public function fun($kiek, $abc = 'Dramblys')
     {
-        dump($abc);
-        return view('kitkas.fun', ['super' => $abc]);
+        $mas = ['Asilas', 'Karvius', 'Bulius', 'Kalakutas'];
+        return view('kitkas.fun', [
+            'abc' => $abc,
+            'mas' => $mas
+        ]);
     }
 }
