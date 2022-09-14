@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
-use App\Http\Requests\StoreBlogRequest;
-use App\Http\Requests\UpdateBlogRequest;
+use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
@@ -15,7 +14,18 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
+        $c = collect();
+
+        $c->add('Z');
+        $c->add('F');
+
+        $c = $c->sort(fn($x, $y) => $x <=> $y);
+        
+        $blogs = Blog::all();
+        return view('blog.index', [
+            'blogs' => $blogs,
+            'c' => $c
+        ]);
     }
 
     /**
@@ -25,18 +35,31 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        return view('blog.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreBlogRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBlogRequest $request)
+    public function store(Request $request)
     {
-        //
+       
+        $validated = $request->validate([
+            'title' => 'required|min:4|regex:/^\d+$/i',
+            'post' => 'required',
+        ], [
+            'title.regex' => 'Viskas labai blogai'
+        ]);
+        
+        
+        $blog = new Blog;
+        $blog->title = $request->title;
+        $blog->post = $request->post;
+        $blog->save();
+        return redirect()->route('index')->with('success_msg', 'Šaunuolytė!');
+
     }
 
     /**
@@ -47,7 +70,7 @@ class BlogController extends Controller
      */
     public function show(Blog $blog)
     {
-        //
+        return view('blog.show', ['blog' => $blog]);
     }
 
     /**
@@ -58,19 +81,29 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        //
+        return view('blog.edit', ['blog' => $blog]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateBlogRequest  $request
      * @param  \App\Models\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBlogRequest $request, Blog $blog)
+    public function update(Request $request, Blog $blog)
     {
-        //
+        
+        $validated = $request->validate([
+            'title' => 'required|min:4|regex:/^\d+$/i',
+            'post' => 'required',
+        ], [
+            'title.regex' => 'Viskas labai blogai'
+        ]);
+        
+        $blog->title = $request->title;
+        $blog->post = $request->post;
+        $blog->save();
+        return redirect()->route('index');
     }
 
     /**
@@ -81,6 +114,7 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
-        //
+        $blog->delete();
+        return redirect()->route('index');
     }
 }
