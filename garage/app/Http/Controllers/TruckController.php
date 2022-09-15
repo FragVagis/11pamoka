@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Truck;
-use App\Http\Requests\StoreTruckRequest;
-use App\Http\Requests\UpdateTruckRequest;
+use App\Models\Mechanic;
+use Illuminate\Http\Request;
 
 class TruckController extends Controller
 {
@@ -25,18 +25,30 @@ class TruckController extends Controller
      */
     public function create()
     {
-        //
+        $mechanics = Mechanic::all();
+        return view('truck.create', [
+            'mechanics' => $mechanics
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreTruckRequest  $request
+     * @param  \Illuminate\Http\Request;  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTruckRequest $request)
+    public function store(Request $request)
     {
-        //
+        $truck = new Truck;
+
+        $truck->maker = $request->maker;
+        $truck->plate = $request->plate;
+        $truck->make_year = $request->make_year;
+        $truck->mechanic_notices = $request->mechanic_notices;
+        $truck->mechanic_id = $request->mechanic_id;
+        $truck->save();
+
+        return redirect()->route('t_index');
     }
 
     /**
@@ -64,11 +76,11 @@ class TruckController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateTruckRequest  $request
+     * @param  \Illuminate\Http\Request;  $request
      * @param  \App\Models\Truck  $truck
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTruckRequest $request, Truck $truck)
+    public function update(Request $request, Truck $truck)
     {
         //
     }
