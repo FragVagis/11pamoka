@@ -43,7 +43,7 @@ class MechanicController extends Controller
         $mechanic->name = $request->name;
         $mechanic->surname = $request->surname;
         $mechanic->save();
-        return redirect()->route('m_index');
+        return redirect()->route('m_index')->with('success_msg', 'Good job. We have new mechanic now.');
     }
 
     /**
@@ -67,7 +67,9 @@ class MechanicController extends Controller
      */
     public function edit(Mechanic $mechanic)
     {
-        //
+        return view('mechanic.edit', [
+            'mechanic' => $mechanic
+        ]);
     }
 
     /**
@@ -79,7 +81,10 @@ class MechanicController extends Controller
      */
     public function update(Request $request, Mechanic $mechanic)
     {
-        //
+        $mechanic->name = $request->name;
+        $mechanic->surname = $request->surname;
+        $mechanic->save();
+        return redirect()->route('m_index')->with('success_msg', 'Good job. U did some changes!');
     }
 
     /**
@@ -90,6 +95,11 @@ class MechanicController extends Controller
      */
     public function destroy(Mechanic $mechanic)
     {
-        //
+        if ($mechanic->getTrucks()->count()) {
+            return redirect()->back()->with('info_msg', 'Oh no, you can not delete this one.');
+        }
+        $mechanic->delete();
+        return redirect()->route('m_index');
+
     }
 }
