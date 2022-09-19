@@ -6,7 +6,7 @@
         <div class="col-5">
             <div class="card">
                 <div class="card-header">
-                    <h2>New Mechanic</h2>
+                    <h2>New Truck</h2>
                 </div>
                 <div class="card-body">
                     <form action="{{route('t_store')}}" method="post">
@@ -29,7 +29,7 @@
                         <select name="mechanic_id" class="form-select mt-3">
                             <option value="0">Choose mechanic</option>
                             @foreach($mechanics as $mechanic)
-                                <option value="{{$mechanic->id}}">{{$mechanic->name}} {{$mechanic->surname}}</option>
+                                <option value="{{$mechanic->id}}" @if($mechanic->id == old('mechanic_id')) selected @endif>{{$mechanic->name}} {{$mechanic->surname}}</option>
                             @endforeach
                         </select>
                         @csrf
