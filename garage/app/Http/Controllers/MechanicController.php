@@ -12,12 +12,20 @@ class MechanicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $mechanics = Mechanic::all();
-
+        
+        $mechanics = match ($request->sort) {
+            'name_asc' => Mechanic::orderBy('name', 'asc')->get(),
+            'name_desc' => Mechanic::orderBy('name', 'desc')->get(),
+            'surname_asc' => Mechanic::orderBy('surname', 'asc')->get(),
+            'surname_desc' => Mechanic::orderBy('surname', 'desc')->get(),
+            default => Mechanic::all()
+        };
+        
         return view('mechanic.index', [
-            'mechanics' => $mechanics
+            'mechanics' => $mechanics,
+            'sortSelect' => $request->sort
         ]);
     }
 
@@ -84,7 +92,7 @@ class MechanicController extends Controller
         $mechanic->name = $request->name;
         $mechanic->surname = $request->surname;
         $mechanic->save();
-        return redirect()->route('m_index')->with('success_msg', 'Good job. U did some changes!');
+        return redirect()->route('m_index')->with('success_msg', 'Good job. Mechanic was updated');
     }
 
     /**

@@ -9,7 +9,7 @@
                     <h2>New Truck</h2>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('t_update', $truck)}}" method="post">
+                    <form action="{{route('t_update', $truck)}}" method="post" enctype="multipart/form-data">
                         <div class="input-group mb-3">
                             <span class="input-group-text">Maker</span>
                             <input type="text" name="maker" class="form-control" value="{{old('maker', $truck->maker)}}">
@@ -26,10 +26,25 @@
                             <span class="input-group-text">Notices</span>
                             <textarea class="form-control" name="mechanic_notices">{{old('mechanic_notices', $truck->mechanic_notices)}}</textarea>
                         </div>
+                        @if($truck->photo)
+                        <div class="img-small mt-3">
+                            <img src="{{$truck->photo}}">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" id="del-photo" name="delete_photo">
+                                <label class="form-check-label" for="del-photo">
+                                    Delete photo
+                                </label>
+                            </div>
+                        </div>
+                        @endif
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">Photo</span>
+                            <input type="file" name="photo" class="form-control">
+                        </div>
                         <select name="mechanic_id" class="form-select mt-3">
                             <option value="0">Choose mechanic</option>
                             @foreach($mechanics as $mechanic)
-                                <option value="{{$mechanic->id}}" @if($mechanic->id == old('mechanic_id', $truck->mechanic_id)) selected @endif>{{$mechanic->name}} {{$mechanic->surname}}</option>
+                            <option value="{{$mechanic->id}}" @if($mechanic->id == old('mechanic_id', $truck->mechanic_id)) selected @endif>{{$mechanic->name}} {{$mechanic->surname}}</option>
                             @endforeach
                         </select>
                         @csrf

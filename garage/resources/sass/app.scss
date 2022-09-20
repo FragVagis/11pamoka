@@ -127,7 +127,7 @@
 }
 
 .truck-show {
-    .line{
+    .line {
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -140,6 +140,20 @@
     p {
         font-family: 'Courier New', Courier, monospace;
         color: gray;
+    }
+}
+
+.img {
+    img {
+        width: auto;
+        height: 300px;
+    }
+}
+
+.img-small {
+    img {
+        width: auto;
+        height: 100px;
     }
 }
 

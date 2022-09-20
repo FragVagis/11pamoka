@@ -7,6 +7,24 @@
             <div class="card">
                 <div class="card-header">
                     <h2>Mechanics</h2>
+                    <form action="{{route('m_index')}}" method="get">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                    <select name="sort" class="form-select mt-1">
+                                        <option value="name_asc" @if('name_asc' == $sortSelect) selected @endif>Name AZ</option>
+                                        <option value="name_desc" @if('name_desc' == $sortSelect) selected @endif>Name ZA</option>
+                                        <option value="surname_asc" @if('surname_asc' == $sortSelect) selected @endif>Surname AZ</option>
+                                        <option value="surname_desc" @if('surname_desc' == $sortSelect) selected @endif>Surname ZA</option>
+                                    </select>
+                                </div>
+                                <div class="col-4">
+                                    <button type="submit" class="btn btn-primary m-1">Sort</button>
+                                    <a href="{{route('m_index')}}" class="btn btn-secondary m-1">Reset</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
@@ -22,9 +40,9 @@
                                     <a href="{{route('m_show', $mechanic)}}" class="btn btn-info">Show</a>
                                     <a href="{{route('m_edit', $mechanic)}}" class="btn btn-success">Edit</a>
                                     <form action="{{route('m_delete', $mechanic)}}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </div>
                             </div>

@@ -10,21 +10,27 @@
                 </div>
                 <div class="card-body">
                     <div class="truck-show">
-                        <div class="line"><small>Plate: </small>
+                        <div class="line"><small>Plate:</small>
                             <h5>{{$truck->plate}}</h5>
                         </div>
-                        <div class="line"><small>Maker: </small>
+                        <div class="line"><small>Maker:</small>
                             <h5>{{$truck->maker}}</h5>
                         </div>
-                        <div class="line"><small>Mechanic: </small>
+                        <div class="line"><small>Mechanic:</small>
                             <h5>{{$truck->getMechanic->name}} {{$truck->getMechanic->surname}}</h5>
                         </div>
                         <p>
                             {{$truck->mechanic_notices}}
                         </p>
+                        @if($truck->photo)
+                        <div class="img">
+                            <img src="{{$truck->photo}}">
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @endsection
+</div>
+@endsection
