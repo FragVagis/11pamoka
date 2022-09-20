@@ -15,18 +15,27 @@ class MechanicController extends Controller
     public function index(Request $request)
     {
         
+        $perPage = match($request->per_page) {
+            'all' => 1000000,
+            '5' => 5,
+            '10' => 10,
+            '20' => 20,
+            '50' => 50,
+            default => 1000000
+        };
+
         $mechanics = match ($request->sort) {
-            'name_asc' => Mechanic::orderBy('name', 'asc')->paginate(5)->withQueryString(),
-            'name_desc' => Mechanic::orderBy('name', 'desc')->paginate(5)->withQueryString(),
-            'surname_asc' => Mechanic::orderBy('surname', 'asc')->paginate(5)->withQueryString(),
-            'surname_desc' => Mechanic::orderBy('surname', 'desc')->paginate(5)->withQueryString(),
-            default => Mechanic::paginate(5)->withQueryString()
+            'name_asc' => Mechanic::orderBy('name', 'asc')->paginate($perPage)->withQueryString(),
+            'name_desc' => Mechanic::orderBy('name', 'desc')->paginate($perPage)->withQueryString(),
+            'surname_asc' => Mechanic::orderBy('surname', 'asc')->paginate($perPage)->withQueryString(),
+            'surname_desc' => Mechanic::orderBy('surname', 'desc')->paginate($perPage)->withQueryString(),
+            default => Mechanic::paginate($perPage)->withQueryString()
         };
         
         return view('mechanic.index', [
             'mechanics' => $mechanics,
             'sortSelect' => $request->sort,
-            'perPage' => $request->per_page
+            'perPage' => $perPage
         ]);
     }
 

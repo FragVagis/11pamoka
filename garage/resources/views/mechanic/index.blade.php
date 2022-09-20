@@ -1,17 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container --content">
     <div class="row justify-content-center">
         <div class="col-9">
             <div class="card">
                 <div class="card-header">
                     <h2>Mechanics</h2>
-                    <div class="container">
-                        <div class="row">
-
-                            <div class="col-6">
-                                <form action="{{route('m_index')}}" method="get">
+                    <form action="{{route('m_index')}}" method="get">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-5">
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-6">
@@ -23,20 +22,17 @@
                                                 </select>
                                             </div>
                                             <div class="col-6">
-                                                <button type="submit" class="btn btn-primary m-1">Sort</button>
-                                                <a href="{{route('m_index')}}" class="btn btn-secondary m-1">Reset</a>
+                                                {{-- <button type="submit" class="btn btn-primary m-1">Sort</button> --}}
                                             </div>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-
-                            <div class="col-6">
-                                <form action="{{route('m_index')}}" method="get">
+                                </div>
+                                <div class="col-7">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-6">
-                                                <select name="sort" class="form-select mt-1">
+                                            <div class="col-3">
+                                                <select name="per_page" class="form-select mt-1">
+                                                    <option value="all" @if('all'==$perPage) selected @endif>All</option>
                                                     <option value="5" @if('5'==$perPage) selected @endif>5</option>
                                                     <option value="10" @if('10'==$perPage) selected @endif>10</option>
                                                     <option value="20" @if('20'==$perPage) selected @endif>20</option>
@@ -44,15 +40,15 @@
                                                 </select>
                                             </div>
                                             <div class="col-6">
-                                                <button type="submit" class="btn btn-primary m-1">Sort</button>
+                                                {{-- <button type="submit" class="btn btn-primary m-1">results in page</button> --}}
+                                                <a href="{{route('m_index')}}" class="btn btn-secondary m-1">Reset</a>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
-
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
