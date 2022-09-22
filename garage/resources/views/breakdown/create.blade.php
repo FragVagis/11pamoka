@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <span class="input-group-text">notes</span>
+                        <span class="input-group-text">Notes</span>
                         <textarea data-create class="form-control" name="notes"></textarea>
                     </div>
 
@@ -42,9 +42,7 @@
                         <input data-create type="text" name="discount" class="form-control">
                     </div>
 
-                    
                     <button data-submit type="button" class="btn btn-secondary mt-4">Create</button>
-
 
                 </div>
             </div>
