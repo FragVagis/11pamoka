@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Breakdown extends Model
 {
     use HasFactory;
+
+    const STATUS = [
+        1 => 'Create',
+        2 => 'In progress',
+        3 => 'Well done! :)'
+    ];
+
+
+
+
 }
