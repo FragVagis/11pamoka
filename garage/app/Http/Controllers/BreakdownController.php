@@ -65,15 +65,16 @@ class BreakdownController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Breakdown  $breakdown
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Breakdown $breakdown)
+
+    public function modal(Breakdown $breakdown)
     {
-        //
+        $html = view('breakdown.modal_content')
+        ->with('breakdown', $breakdown)
+        ->with('status', Breakdown::STATUS)
+        ->render();
+        return response()->json([
+            'html' => $html,
+        ]);
     }
 
     /**
@@ -96,7 +97,19 @@ class BreakdownController extends Controller
      */
     public function update(Request $request, Breakdown $breakdown)
     {
-        //
+        $breakdown->truck_id = (int) $request->truck_id;
+        $breakdown->title = $request->title;
+        $breakdown->notes = $request->notes;
+        $breakdown->status = (int) $request->status;
+        $breakdown->price = (float) $request->price;
+        $breakdown->discount = (float) $request->discount;
+
+        $breakdown->save();
+
+        return response()->json([
+            'msg' => 'All good',
+            'status' => 'OK'
+        ]);
     }
 
     /**
@@ -107,6 +120,21 @@ class BreakdownController extends Controller
      */
     public function destroy(Breakdown $breakdown)
     {
-        //
+        $breakdown->delete();
+        return response()->json([
+            'msg' => 'All good',
+            'status' => 'OK',
+            'refresh' => 'list'
+        ]);
     }
+
+    // public function destroy(int $id)
+    // {
+    //     Breakdown::where('id', $id)->first()->delete();
+    //     return response()->json([
+    //         'msg' => 'All good',
+    //         'status' => 'OK',
+    //         'refresh' => 'list'
+    //     ]);
+    // }
 }
