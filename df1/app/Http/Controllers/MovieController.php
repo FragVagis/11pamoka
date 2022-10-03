@@ -15,7 +15,9 @@ class MovieController extends Controller
      */
     public function index()
     {
-       return 'ba ba';
+       return view('movie.index', [
+        'movies' => Movie::orderBy('updated_at', 'desc')->get(),
+       ]);
     }
 
     /**
@@ -44,7 +46,7 @@ class MovieController extends Controller
             'category_id' => $request->category_id
         ]);
 
-        return redirect()->back();
+        return redirect()->route('m_index');
     }
 
     /**
@@ -55,7 +57,9 @@ class MovieController extends Controller
      */
     public function show(Movie $movie)
     {
-        //
+        return view('movie.show', [
+            'movie' => $movie,
+        ]);
     }
 
     /**
