@@ -18,15 +18,7 @@
                             <span class="input-group-text">Price</span>
                             <input type="text" name="price" class="form-control" value="{{old('price', $movie->price)}}">
                         </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Make Year</span>
-                            <input type="text" name="make_year" class="form-control" value="{{old('make_year', $movie->make_year)}}">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-text">Notices</span>
-                            <textarea class="form-control" name="category_notices">{{old('category_notices', $movie->category_notices)}}</textarea>
-                        </div>
-                        @if($movie->photo)
+                        {{-- @if($movie->photo)
                         <div class="img-small mt-3">
                             <img src="{{$movie->photo}}">
                             <div class="form-check">
@@ -40,10 +32,10 @@
                         <div class="input-group mt-3">
                             <span class="input-group-text">Photo</span>
                             <input type="file" name="photo" class="form-control">
-                        </div>
+                        </div> --}}
                         <select name="category_id" class="form-select mt-3">
                             <option value="0">Choose category</option>
-                            @foreach($categorys as $category)
+                            @foreach($categories as $category)
                             <option value="{{$category->id}}" @if($category->id == old('category_id', $movie->category_id)) selected @endif>{{$category->title}}</option>
                             @endforeach
                         </select>

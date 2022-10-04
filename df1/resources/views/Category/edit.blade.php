@@ -1,23 +1,41 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container --content">
     <div class="row justify-content-center">
-        <div class="col-5">
+        <div class="col-9">
             <div class="card">
                 <div class="card-header">
-                    <h2>Change Category</h2>
+                    <h2>Categories</h2>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('c_edit', $category)}}" method="post">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Title</span>
-                        <input type="text" name="title" class="form-control" value={{old('name', $category->title)}}>
-                    </div>
-                    @csrf
-                    @method('put')
-                    <button type="submit" class="btn btn-secondary mt-4">Change</button>
-                    </form>
+                    <ul class="list-group">
+                        @forelse($categories as $category)
+                        <li class="list-group-item">
+                            <div class="categories-list">
+                                <div class="content">
+                                    <h2>{{$category->title}}
+                                    <small>[{{$category->movies()->count()}}]</small>
+                                    </h2>
+                                </div>
+                                <div class="buttons">
+                                    <a href="{{route('c_show', $category)}}" class="btn btn-info">Show</a>
+                                    <a href="{{route('c_edit', $category)}}" class="btn btn-success">Edit</a>
+                                    <form action="{{route('c_delete', $category)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                        @empty
+                        <li class="list-group-item">No categories found</li>
+                        @endforelse
+                    </ul>
+                </div>
+                <div class="me-3 mx-3">
+                    {{-- {{ $categories->links() }} --}}
                 </div>
             </div>
         </div>
