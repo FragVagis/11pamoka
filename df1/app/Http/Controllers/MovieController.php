@@ -86,11 +86,15 @@ class MovieController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
+        
         $movie->update([
             'title' => $request->title,
             'price' => $request->price,
             'category_id' => $request->category_id
         ]);
+        $movie
+        ->removeImages($request->delete_photo)
+        ->addImages($request->file('photo'));
 
         return redirect()->route('m_index');
     }
@@ -103,6 +107,11 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
+        if($movie->getPhotos()->count()) {
+            $delIds = $movie->getPhotos()->pluck('id')->all();
+            $movie->removeImages(delIds);
+            
+        }
         $movie->delete();
         return redirect()->route('m_index');
     }
