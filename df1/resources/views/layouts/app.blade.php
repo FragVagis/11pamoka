@@ -57,9 +57,13 @@
                                 <a class="dropdown-item" href="{{ route('c_index') }}">
                                     List
                                 </a>
+                                @if(Auth::user()->role >= 10)
+                                
                                 <a class="dropdown-item" href="{{ route('c_create') }}">
                                     Add
                                 </a>
+                                    
+                                @endif
                             </div>
                         </li>
                         <li class="nav-item dropdown">
