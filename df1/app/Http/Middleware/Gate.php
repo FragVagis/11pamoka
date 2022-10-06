@@ -19,9 +19,14 @@ class Gate
     {
 
         $permissions = [
-            1 => ['user'],
-            10 => ['user', 'admin']
+            1 => ['user', 'home'],
+            10 => ['user', 'admin', 'home']
         ];
+
+
+        if(!Auth::user()){
+            return redirect('login');
+        }
 
         if (!in_array($role, $permissions[Auth::user()->role])) {
             abort(401);

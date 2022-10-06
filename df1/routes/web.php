@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController as C;
 use App\Http\Controllers\MovieController as M;
+use App\Http\Controllers\HomeController as H;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +16,13 @@ use App\Http\Controllers\MovieController as M;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [H::class, 'homeList'])->name('home')->middleware('gate:home');
+Route::put('/rate/{movie}', [H::class, 'rate'])->name('rate')->middleware('gate:user');
+
 
 Route::prefix('category')->name('c_')->group(function () {
     Route::get('/', [C::class, 'index'])->name('index')->middleware('gate:user');
