@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController as C;
+use App\Http\Controllers\CommentController as C;
 use App\Http\Controllers\MovieController as M;
 use App\Http\Controllers\HomeController as H;
 
@@ -32,4 +32,11 @@ Route::prefix('movie')->name('m_')->group(function () {
     Route::delete('/delete/{movie}', [M::class, 'destroy'])->name('delete');
     Route::get('/edit/{movie}', [M::class, 'edit'])->name('edit');
     Route::put('/edit/{movie}', [M::class, 'update'])->name('update');
+});
+
+
+Route::prefix('comment')->name('c_')->group(function () {
+    Route::get('/', [C::class, 'index'])->name('index')->middleware('gate:user');
+    Route::delete('/delete/{comment}', [C::class, 'destroy'])->name('delete')->middleware('gate:user');
+
 });

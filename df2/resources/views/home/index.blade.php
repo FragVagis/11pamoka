@@ -22,7 +22,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-2">
-                                                <button type="submit" class="input-group-text mt-1">Filter</button>
+                                                <button type="submit" class="input-group-text mt-1">Sort</button>
                                             </div>
                                         </div>
                                     </div>
@@ -62,7 +62,6 @@
                         <div class="content">
                             <h2><span>Title: </span>{{$movie->title}}</h2>
                             <h4><span>Price: </span>{{$movie->price}}</h4>
-                            
                             @if($movie->getPhotos()->count())
                             <h5><a href="{{$movie->lastImageUrl()}}" target="_BLANK">Photos: {{$movie->getPhotos()->count()}}</a></h5>
                             @endif
@@ -82,14 +81,25 @@
                         </div>
                     </div>
                     <div class="comments">
-                    <form action="{{route('comment', $movie)}}" method="post>"
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">comment</span>
-                            <textarea name="post" class="form-control"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-info">yes</button>
-                        @csrf
-                        </form>
+
+                        <ul class="list-group m-3">
+                            @forelse($movie->getComments as $comment)
+                            <li class="list-group-item">
+                                <div>{{$comment->post}}</div>
+                            </li>
+                            @empty
+                            <li class="list-group-item">No comment.</li>
+                            @endforelse
+                        </ul>
+
+                            <form action="{{route('comment', $movie)}}" method="post">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Comment</span>
+                                    <textarea name="post" class="form-control"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-info">add comment</button>
+                                @csrf
+                            </form>
                     </div>
                 </li>
                 @empty

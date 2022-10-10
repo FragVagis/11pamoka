@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('movie_id');
-            $table->foreign('movie_id')->references('id')->on('movies'); // Sujungiam kategorijas
+            $table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade'); // Sujungiam kategorijas
             $table->text('post');
             $table->timestamps();
         });
