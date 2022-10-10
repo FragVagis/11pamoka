@@ -12,11 +12,8 @@ class HomeController extends Controller
 
     public function homeList(Request $request)
     {
-        // Filter
-        if ($request->cat) {
-            $movies = Movie::where('category_id', $request->cat);
-        } 
-        else if ($request->s) {
+
+        if ($request->s) {
             $search = explode(' ', $request->s);
             if (count($search) == 1) {
                 $movies = Movie::where('title', 'like', '%'.$request->s.'%');
@@ -54,8 +51,6 @@ class HomeController extends Controller
         
         return view('home.index', [
             'movies' => $movies->get(),
-            'categories' => Category::orderBy('title')->get(),
-            'cat' => $request->cat ?? '0',
             'sort' => $request->sort ?? '0',
             'sortSelect' => Movie::SORT_SELECT,
             's' => $request->s ?? '',
