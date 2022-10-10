@@ -22,6 +22,7 @@ Auth::routes();
 
 Route::get('/', [H::class, 'homeList'])->name('home')->middleware('gate:home');
 Route::put('/rate/{movie}', [H::class, 'rate'])->name('rate')->middleware('gate:user');
+Route::post('/comment/{movie}', [H::class, 'addComment'])->name('comment')->middleware('gate:user');
 
 Route::prefix('movie')->name('m_')->group(function () {
     Route::get('/', [M::class, 'index'])->name('index');
