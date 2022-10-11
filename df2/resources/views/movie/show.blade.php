@@ -16,8 +16,9 @@
                         <div class="line"><small>Price:</small>
                             <h5>{{$movie->price}}</h5>
                         </div>
-                        <div class="swiper">
 
+
+                        <div class="swiper">
                             <div class="swiper-wrapper">
                                 @forelse($movie->getPhotos as $photo)
                                 <div class="swiper-slide">

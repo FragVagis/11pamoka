@@ -81,7 +81,6 @@
                         </div>
                     </div>
                     <div class="comments">
-
                         <ul class="list-group m-3">
                             @forelse($movie->getComments as $comment)
                             <li class="list-group-item">
@@ -91,15 +90,14 @@
                             <li class="list-group-item">No comment.</li>
                             @endforelse
                         </ul>
-
-                            <form action="{{route('comment', $movie)}}" method="post">
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text">Comment</span>
-                                    <textarea name="post" class="form-control"></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-info">add comment</button>
-                                @csrf
-                            </form>
+                        <form action="{{route('comment', $movie)}}" method="post">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Comment</span>
+                                <textarea name="post" class="form-control"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-info">add comment</button>
+                            @csrf
+                        </form>
                     </div>
                 </li>
                 @empty
@@ -107,11 +105,9 @@
                 @endforelse
             </ul>
         </div>
-        <div class="me-3 mx-3">
-            {{-- {{ $movies->links() }} --}}
-        </div>
     </div>
-</div>
-</div>
+    <div class="me-3 mx-3 mt-3">
+        {{ $movies->links() }}
+    </div>
 </div>
 @endsection

@@ -239,7 +239,7 @@ h2 small {
 }
 
 .img-small-ch {
-    .img{
+    .img {
         position: relative;
         margin: 25px;
         img {
@@ -265,16 +265,19 @@ h2 small {
             font-weight: bold;
             user-select: none;
             cursor: pointer;
-            
-
         }
-        [type=checkbox]{
+        [type=checkbox] {
             display: none;
-
-            &:checked~img{
-                opacity: 0.3;   
+            &:checked~img {
+                opacity: 0.3;
             }
         }
     }
+}
 
+.swiper {
+    img {
+        width: auto;
+        height: 400px;
+    }
 }
