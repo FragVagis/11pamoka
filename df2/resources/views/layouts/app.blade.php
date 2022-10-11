@@ -96,10 +96,38 @@
                 </div>
             </div>
         </nav>
+        <div class="py-4">
+            @if ($errors->any())
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-6 m-4">
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    @endif
+                    
+                    @if(Session::has('ok'))
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-6 m-4">
+
+                                <div class="alert alert-danger">
+                                    {{Session::get('ok')}}
+                                </div>
+                            </div>
+
+
+                            @endif
+
+                            <main class="py-4">
+                                @yield('content')
+                            </main>
+                        </div>
 </body>
 </html>
