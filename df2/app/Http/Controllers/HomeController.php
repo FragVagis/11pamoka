@@ -19,7 +19,7 @@ class HomeController extends Controller
                 $movies = Movie::where('title', 'like', '%'.$request->s.'%');
             }
             else {
-                $movies = Movie::where('title', 'like', '%'.$search[0].' '.$search[1].'%')
+                $movies = Movie::where('title', 'like', '%'.$search[0].'%'.$search[1].'%')
                 ->orWhere('title', 'like', '%'.$search[1].'%'.$search[0].'%')
                 ->orWhere('title', 'like', '%'.$search[0].'%')
                 ->orWhere('title', 'like', '%'.$search[1].'%');
@@ -50,7 +50,7 @@ class HomeController extends Controller
         }
         
         return view('home.index', [
-            'movies' => $movies->get(5)->withQueryString(),
+            'movies' => $movies->paginate(5)->withQueryString(),
             'sort' => $request->sort ?? '0',
             'sortSelect' => Movie::SORT_SELECT,
             's' => $request->s ?? '',
@@ -66,7 +66,7 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
-    public function addComment(Request $request, Movie $movie) 
+    public function addComment(Request $request, Movie $movie)
     {
         Comment::create([
             'movie_id' => $movie->id,
@@ -75,6 +75,7 @@ class HomeController extends Controller
 
         return redirect()->back();
     }
+
 
 
 
