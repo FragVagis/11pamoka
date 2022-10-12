@@ -111,23 +111,21 @@
                         </div>
                     </div>
                     @endif
-                    
+
                     @if(Session::has('ok'))
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-6 m-4">
-
                                 <div class="alert alert-danger">
-                                    {{Session::get('ok')}}
+                                    {{Session::get('not')}}
                                 </div>
                             </div>
-
-
+                        </div>
                             @endif
 
                             <main class="py-4">
                                 @yield('content')
                             </main>
-                        </div>
+                    </div>
 </body>
 </html>
