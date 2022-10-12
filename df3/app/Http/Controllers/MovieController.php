@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
-use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 
@@ -16,7 +16,8 @@ class MovieController extends Controller
      */
     public function index()
     {
-       return view('movie.index', [
+       
+        return view('movie.index', [
         'movies' => Movie::orderBy('updated_at', 'desc')->paginate(5),
        ]);
     }
@@ -28,7 +29,9 @@ class MovieController extends Controller
      */
     public function create()
     {
-        return view('movie.create');
+        return view('movie.create', [
+            'tags' => Tag::orderBy('title')->get(),
+        ]);
     }
 
     /**
@@ -39,24 +42,19 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
-            'title' => 'required|min:3|max:10',
+            'title' => 'required|min:3|max:50',
             'price' => 'required|numeric|min:1|max:100',
-            'photo.*' => 'sometimes|required|mimes:jpg'
-        ],
-        [
-            'title.required' => 'nėra title',
-            'title.min' => 'Taitlas per trumpas',
-            'title.max' => 'Taitlas per ilgas',
-            'price.required' => 'nėra kainos',
+            'photo.*' => 'sometimes|required|mimes:jpg|max:2000'
         ]);
-
+        
         Movie::create([
             'title' => $request->title,
             'price' => $request->price,
-        ])->addImages($request->file('photo'));
-
-        return redirect()->route('m_index');
+        ])->addImages($request->file('photo'))
+        ->addTags($request->tag);
+        return redirect()->route('m_index')->with('ok', 'All Good!');
     }
 
     /**
@@ -82,6 +80,8 @@ class MovieController extends Controller
     {
         return view('movie.edit', [
             'movie' => $movie,
+            'tags' => Tag::orderBy('title')->get(),
+            'checkedTags' => $movie->getPivot->pluck('tag_id')->all()
         ]);
     }
 
@@ -94,11 +94,11 @@ class MovieController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
-
+        
         $request->validate([
-            'title' => 'required|min:3|max:10',
+            'title' => 'required|min:3|max:50',
             'price' => 'required|numeric|min:1|max:100',
-            'photo.*' => 'sometimes|required|mimes:jpg'
+            'photo.*' => 'sometimes|required|mimes:jpg|max:2000'
         ]);
 
         $movie->update([
@@ -108,8 +108,9 @@ class MovieController extends Controller
         $movie
         ->removeImages($request->delete_photo)
         ->addImages($request->file('photo'));
+        
 
-        return redirect()->route('m_index');
+        return redirect()->route('m_index')->with('ok', 'All Good!');
     }
 
     /**
@@ -126,6 +127,6 @@ class MovieController extends Controller
         }
         $title = $movie->title;
         $movie->delete();
-        return redirect()->route('m_index')->with('ok', "$title Gone!");
+        return redirect()->route('m_index')->with('ok', "$title gone!");
     }
 }

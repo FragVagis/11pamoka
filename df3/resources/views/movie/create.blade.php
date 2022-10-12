@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div  class="container">
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-5">
             <div class="card">
@@ -22,8 +22,23 @@
                             <span class="input-group-text">Photo</span>
                             <input type="file" name="photo[]" multiple class="form-control">
                         </div>
-                        @csrf
-                        <button type="submit" class="btn btn-secondary mt-4">Create</button>
+                        <div class="tags-cloud">
+                            @forelse($tags as $tag)
+                            <div class="form-check">
+                                <input class="form-check-input" name="tag[]" type="checkbox" value="{{$tag->id}}" id="_{{$tag->id}}" checked>
+                                <label class="form-check-label" for="_{{$tag->id}}">
+                                    {{$tag->id}}
+                                </label>
+                            </div>
+
+
+                            @empty
+                            <h3>No tags</h3>
+                            @endforelse
+
+                            @csrf
+                            <button type="submit" class="btn btn-secondary mt-4">Create</button>
+                        </div>
                     </form>
                 </div>
             </div>

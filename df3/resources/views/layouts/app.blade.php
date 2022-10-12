@@ -67,6 +67,21 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Tags
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('t_index') }}">
+                                    List
+                                </a>
+                                @if(Auth::user()->role >= 10)
+                                <a class="dropdown-item" href="{{ route('t_create') }}">
+                                    Add
+                                </a>
+                                @endif
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 Comments
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -96,12 +111,13 @@
                 </div>
             </div>
         </nav>
-        <div class="py-4">
+
+        <main class="py-4">
+
             @if ($errors->any())
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-6 m-4">
-
                         <div class="alert alert-danger">
                             <ul>
                                 @foreach ($errors->all() as $error)
@@ -110,22 +126,36 @@
                             </ul>
                         </div>
                     </div>
-                    @endif
+                </div>
+            </div>
+            @endif
 
-                    @if(Session::has('ok'))
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-6 m-4">
-                                <div class="alert alert-danger">
-                                    {{Session::get('not')}}
-                                </div>
-                            </div>
+            @if(Session::has('ok'))
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-6 m-4">
+                        <div class="alert alert-success">
+                            {{Session::get('ok')}}
                         </div>
-                            @endif
-
-                            <main class="py-4">
-                                @yield('content')
-                            </main>
                     </div>
+                </div>
+            </div>
+            @endif
+
+            @if(Session::has('not'))
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-6 m-4">
+                        <div class="alert alert-danger">
+                            {{Session::get('not')}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            @yield('content')
+        </main>
+    </div>
 </body>
 </html>
